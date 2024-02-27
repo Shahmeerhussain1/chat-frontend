@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
+import './assets/global.scss';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -23,7 +22,7 @@ function App() {
       ),
     },
     {
-      path: "/chat",
+      path: "/chats",
       element: (
         con ? <Chats /> : <div>Who you</div>
       ),
