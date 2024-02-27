@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import env from "../config/config";
 import SvgIcons from "../assets/icons/SvgIcons";
+import BottomBar from "../components/BottomBar";
 
 const Chats = () => {
     const [allUsers, setAllusers] = useState(null)
@@ -61,7 +62,7 @@ const Chats = () => {
                         <div className="onSelectedinChats">
                             <div className="selectedTopName">
                                 <div className="onUserinList">
-                                    <div onClick={()=>{setState({...state , oneSelected : null})}} className="m_0 backButton">
+                                    <div onClick={() => { setState({ ...state, oneSelected: null }) }} className="m_0 backButton">
                                         <SvgIcons.BackArrow />
                                     </div>
                                     <div className="imageDiv">
@@ -103,7 +104,7 @@ const Chats = () => {
                                 }
                             </div>
                             <div className="slidingMainTwo">
-
+                                <BottomBar />
                             </div>
 
                         </div>
