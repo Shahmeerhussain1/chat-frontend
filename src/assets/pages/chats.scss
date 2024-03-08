@@ -24,8 +24,8 @@
     .lastMessage {
         font-size: 14px;
         color: #c9c7c7;
-        // font-family: "DM Sans", sans-serif;
-        font-family: "Caveat", cursive;
+        font-family: "DM Sans", sans-serif;
+        // font-family: "Caveat", cursive;
         font-optical-sizing: auto;
         font-style: normal;
         font-weight: 400;
@@ -70,7 +70,6 @@
 
     .onUserinList:hover {
         cursor: pointer;
-        // background-color: #a8e8ca;
         background-color: #F8F8F8;
     }
 
@@ -121,11 +120,7 @@
         background-color: #F8F8F8;
     }
 
-    .selectedMessages {
-        height: 70%;
-        // background-color: ;
-        overflow-y: scroll;
-    }
+   
 
     .selectedInput {
         height: 10%;
@@ -143,7 +138,12 @@
         color: #001f3d;
         font-family: "DM Sans", sans-serif;
         font-weight: 800;
+        cursor: pointer;
     }
+    .sendButton:focus{
+        background-color: White;
+    }
+
 
     .selectedInput>textarea {
         background-color: white;
@@ -153,5 +153,124 @@
         border: none;
         outline: none;
 
+    }
+    .no-hover:hover{
+        background-color: white !important;
+        cursor: default;
+    }
+    .decision{
+        margin-right: 0px;
+        display: flex;
+    }
+    .reject{
+        background-color: #f32013;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+    .accept{
+        background-color: #5cb85c;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    .sendRequest{
+        border: 1px solid #001f3d;
+        background-color: #a8e8ca;
+        color: #001f3d;
+        padding-top: 5px;
+        padding-bottom: 5px ;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 90px;
+        border-radius: 22px;
+        font-size: 12px;
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .selectedMessages {
+        height: 70%;
+        // background-color: ;
+        overflow-y: scroll;
+    }
+    .messageForMe{
+        width: 100%;
+        display: flex;
+        justify-content: left;
+        margin-bottom: 5px;
+
+        
+    }
+    .messageForHim{
+        width: 100%;
+        display: flex;
+        justify-content: right;
+        margin-bottom: 5px;
+
+        
+
+    }
+    .messageForHim > span{
+        margin: 0px;
+        margin-top: 12px;
+        padding: 7px 12px;
+        background-color: #a8e8ca;
+        margin-right: 7px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-weight: 500;
+        max-width: 50%;
+        
+    }
+    .messageForMe > span{
+        margin: 0px;
+        margin-top: 12px;
+        padding: 7px 12px;
+        background-color: #cdcdcd;
+        margin-left: 7px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-weight: 500;
+        max-width: 50%;
+        
+    }
+    .messageForMe > span > div{
+        margin: 0px;
+        margin-top: 8px;
+        font-size: 9px;
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-weight: 400;
+        
+    }
+    .messageForHim > span > div{
+        margin: 0px;
+        margin-top: 8px;
+        font-size: 9px;
+        font-family: "DM Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-weight: 400;
+        
     }
 }
