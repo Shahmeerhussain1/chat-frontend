@@ -67,10 +67,8 @@ const Chats = () => {
         console.log('state !',state)
         if (state.oneSelected && state.oneSelected._id == data.senderId) {
             toUpdateSelectedUser.messages.push({ ...data })
-            console.log('toUpdateSelectedUser 1' , toUpdateSelectedUser)
             setState({ ...state, oneSelected: toUpdateSelectedUser })
             handleScroll()
-            console.log('toUpdateSelectedUser 2' , toUpdateSelectedUser)
         } else {
             allUsers?.map((ele, idx) => {
                 if (ele._id == data.senderId) {
@@ -227,7 +225,7 @@ const Chats = () => {
                                         state?.oneSelected?.messages?.map((ele, idx) => {
                                             return (
                                                 <div key={idx} className={ele.receiverId == myUser[0]._id ? 'messageForMe' : 'messageForHim'}>
-                                                    <span>{ele.message} <div>{getMessageStatus(ele?.timeStamp)}</div></span>
+                                                    <span>{ele?.message} <div>{getMessageStatus(ele?.timeStamp)}</div></span>
                                                 </div>
                                             )
                                         })
@@ -254,7 +252,7 @@ const Chats = () => {
                                                 </div>
                                                 <div className="information">
                                                     <div className="name">{ele.fullName}</div>
-                                                    <div className="lastMessage">{ allUsers && ele.messages[ele.messages.length - 1].message}</div>
+                                                    <div className="lastMessage">{ allUsers && ele.messages[ele.messages.length - 1]?.message}</div>
                                                     <div className="lastMessage">{ notifications.includes(ele._id) && countOccurrences(notifications , ele._id)  }</div>
                                                 </div>
                                             </div>
