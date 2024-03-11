@@ -48,26 +48,28 @@ const Chats = () => {
         socket.on('messageSent', (data) => {
             console.log('messageSent', data)
             if (data?.receiverId == myUser[0]._id) {
-               if(!allUsers){
-                console.log('ALL USERS GONE', allUsers)
-               } else{
-                   handleNewMessages(data)
-               }
+                if (!allUsers) {
+                    console.log('ALL USERS GONE', allUsers)
+                } else {
+                    handleNewMessages(data)
+                }
             }
         });
         return () => {
             socket.off('connection');
         };
 
-    }, [allUsers,state.oneSelected]);
+    }, [allUsers, state.oneSelected]);
 
     const handleNewMessages = (data) => {
         let toUpdateSelectedUser = state.oneSelected
         let toUpdateAllUser = allUsers
-        console.log('state !',state)
+        console.log('state !', state)
         if (state.oneSelected && state.oneSelected._id == data.senderId) {
-            toUpdateSelectedUser.messages.push({ ...data })
-            setState({ ...state, oneSelected: toUpdateSelectedUser })
+            if (!toUpdateSelectedUser.messages.some((ele) => { return ele.timeStamp == data?.timeStamp })) {
+                toUpdateSelectedUser.messages.push({ ...data })
+                setState({ ...state, oneSelected: toUpdateSelectedUser })
+            }
             handleScroll()
         } else {
             allUsers?.map((ele, idx) => {
@@ -82,7 +84,13 @@ const Chats = () => {
             notificationsToUpdate.push(data.senderId)
             setNotifications([...notificationsToUpdate])
         }
+        handleScroll()
+
     }
+
+    useEffect(() => { handleScroll() }
+
+        , [state.oneSelected])
 
     function getMessageStatus(timestamp) {
         const now = Date.now();
@@ -120,14 +128,13 @@ const Chats = () => {
             })
             console.log('usersToUpdate', usersToUpdate)
             setAllusers([...usersToUpdate])
-            // handleScroll()
         }
         setState({ ...state, mainLoader: false })
 
     }
 
 
-    
+
     useEffect(() => {
         onload()
     }, [])
@@ -164,7 +171,7 @@ const Chats = () => {
     const handleSelectOne = (ele) => {
         setState({ ...state, oneSelected: ele })
         let toUpdateNotifications = [...notifications]
-        if(notifications.includes(ele._id)){
+        if (notifications.includes(ele._id)) {
             toUpdateNotifications = toUpdateNotifications?.filter(item => item !== ele._id)
             setNotifications([...toUpdateNotifications])
         }
@@ -177,6 +184,7 @@ const Chats = () => {
     }, [state.oneSelected])
 
     const handleScroll = () => {
+        console.log('THEYCALLEDME')
         const outerDiv = outerRef.current;
         const innerDiv = innerRef.current;
         if (outerDiv && innerDiv) {
@@ -252,8 +260,8 @@ const Chats = () => {
                                                 </div>
                                                 <div className="information">
                                                     <div className="name">{ele.fullName}</div>
-                                                    <div className="lastMessage">{ allUsers && ele.messages[ele.messages.length - 1]?.message}</div>
-                                                    <div className="lastMessage">{ notifications.includes(ele._id) && countOccurrences(notifications , ele._id)  }</div>
+                                                    <div className="lastMessage">{allUsers && ele.messages[ele.messages.length - 1]?.message}</div>
+                                                    <div className="lastMessage">{notifications.includes(ele._id) && countOccurrences(notifications, ele._id)}</div>
                                                 </div>
                                             </div>
                                         )
