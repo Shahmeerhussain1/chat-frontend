@@ -10,6 +10,7 @@ import Chats from './pages/Chats';
 import FriendRequsts from './pages/FriendRequests';
 import Members from './pages/Members';
 import Profile from './pages/Profile';
+import { Notifications } from 'react-push-notification';
 function App() {
 
   let con = true
@@ -46,7 +47,10 @@ function App() {
       ),
     },])
   return (
+    <>
+    <Notifications />
     <RouterProvider router={router} />
+    </>
   );
 }
 

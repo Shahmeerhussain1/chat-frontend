@@ -4,6 +4,7 @@ import env from "../config/config";
 import SvgIcons from "../assets/icons/SvgIcons";
 import BottomBar from "../components/BottomBar";
 import { socket } from "../socket";
+import addNotification from 'react-push-notification';
 
 const Chats = () => {
 
@@ -57,6 +58,7 @@ const Chats = () => {
         });
         return () => {
             socket.off('connection');
+            socket.off('messageSent');
         };
 
     }, [allUsers, state.oneSelected]);
@@ -66,10 +68,11 @@ const Chats = () => {
         let toUpdateAllUser = allUsers
         console.log('state !', state)
         if (state.oneSelected && state.oneSelected._id == data.senderId) {
-            if (!toUpdateSelectedUser.messages.some((ele) => { return ele.timeStamp == data?.timeStamp })) {
+            // if (!toUpdateSelectedUser.messages.some((ele) => { return ele.timeStamp == data?.timeStamp })) {
                 toUpdateSelectedUser.messages.push({ ...data })
                 setState({ ...state, oneSelected: toUpdateSelectedUser })
-            }
+                
+            // }
             handleScroll()
         } else {
             allUsers?.map((ele, idx) => {
@@ -85,6 +88,7 @@ const Chats = () => {
             setNotifications([...notificationsToUpdate])
         }
         handleScroll()
+        handleNotification(data?.senderId , data?.message)
 
     }
 
@@ -199,6 +203,23 @@ const Chats = () => {
             return count;
         }, 0);
     }
+    const handleNotification = (sender , message) => {
+        addNotification({
+            title: 'New Message',
+            subtitle: `from ${sender}`, //optional
+            message: `${message}`, //optional
+            // onClick: (e: Event | Notification) => void, //optional, onClick callback.
+            theme: 'white', //optional, default: undefined
+            duration: 6000, //optional, default: 5000,
+            backgroundTop: 'green', //optional, background color of top container.
+            backgroundBottom: 'darkgreen', //optional, background color of bottom container.
+            colorTop: 'green', //optional, font color of top container.
+            colorBottom: 'darkgreen', //optional, font color of bottom container.
+            closeButton: 'Go away', //optional, text or html/jsx element for close text. Default: Close,
+            native: true, //optional, makes the push notification a native OS notification
+            // icon?: string, // optional, Native only. Sets an icon for the notification.
+        });
+    };
     return (
         <> {state.mainLoader ?
             <div className="mainLoader">
@@ -251,6 +272,9 @@ const Chats = () => {
                         <div className="slidingMain">
                             <div className="slidingMainOne">
                                 <div className="mainHeading">Chats</div>
+                                {
+                                    console.log('allUsers',allUsers)
+                                }
                                 {
                                     allUsers && allUsers?.length > 0 && allUsers.map((ele, idx) => {
                                         return (
