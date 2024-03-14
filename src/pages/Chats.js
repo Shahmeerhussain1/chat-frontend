@@ -1,15 +1,19 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import env from "../config/config";
 import SvgIcons from "../assets/icons/SvgIcons";
 import BottomBar from "../components/BottomBar";
 import { socket } from "../socket";
 import addNotification from 'react-push-notification';
+import { UserContext } from "../components/contsxt";
 
 const Chats = () => {
 
     const [allUsers, setAllusers] = useState(null)
+    const { users, setUsers } = useContext(UserContext);
+    const [user, setUser] = useState('')
     const [notifications, setNotifications] = useState([])
+    const [voiceAvailable, setVoiceAvailable] = useState(false)
     const [state, setState] = useState({
         mainLoader: false,
         oneSelected: null,
@@ -18,37 +22,21 @@ const Chats = () => {
     const innerRef = useRef(null)
     const outerRef = useRef(null)
 
-    let myUser = [
-
-        // {
-        //     fullName: "Shah Meer",
-        //     email: "Shah@meer.com",
-        //     _id: "user0",
-        //     password: "meer123",
-        //     profileImage: 'https://scontent.fkhi17-1.fna.fbcdn.net/v/t39.30808-6/369704562_1001637994483209_5416341007227171651_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=9c7eae&_nc_ohc=lLch4w46AnkAX_iVwBx&_nc_ht=scontent.fkhi17-1.fna&oh=00_AfDCnROInRfQRlF5mZSMxUt_VUb4QDQ0vVn2jemZx0muBQ&oe=65E1E1C8'
-        // },
-
-        {
-            _id:
-                "user0",
-            fullName:
-                "John Doe",
-            email:
-                "john@example.com",
-            password:
-                "password123",
-            profileImage:
-                "https://scontent.fkhi17-1.fna.fbcdn.net/v/t39.30808-6/369704562_100163…"
-
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.voice = speechSynthesis.getVoices()[0];
+            speechSynthesis.speak(utterance);
+        } else {
+            console.error('Speech synthesis not supported');
         }
-
-    ];
+    }
 
     useEffect(() => {
         socket.emit('connection', { message: 'Hello client Connected' });
         socket.on('messageSent', (data) => {
             console.log('messageSent', data)
-            if (data?.receiverId == myUser[0]._id) {
+            if (data?.receiverId == user?._id) {
                 if (!allUsers) {
                     console.log('ALL USERS GONE', allUsers)
                 } else {
@@ -69,9 +57,9 @@ const Chats = () => {
         console.log('state !', state)
         if (state.oneSelected && state.oneSelected._id == data.senderId) {
             // if (!toUpdateSelectedUser.messages.some((ele) => { return ele.timeStamp == data?.timeStamp })) {
-                toUpdateSelectedUser.messages.push({ ...data })
-                setState({ ...state, oneSelected: toUpdateSelectedUser })
-                
+            toUpdateSelectedUser.messages.push({ ...data })
+            setState({ ...state, oneSelected: toUpdateSelectedUser })
+
             // }
             handleScroll()
         } else {
@@ -88,12 +76,11 @@ const Chats = () => {
             setNotifications([...notificationsToUpdate])
         }
         handleScroll()
-        handleNotification(data?.senderId , data?.message)
+        handleNotification(data?.senderId, data?.message)
 
     }
 
     useEffect(() => { handleScroll() }
-
         , [state.oneSelected])
 
     function getMessageStatus(timestamp) {
@@ -116,11 +103,21 @@ const Chats = () => {
     }
 
     const onload = async () => {
+        let localUser
+        if (users?._id) {
+            localUser = users
+            setUser(localUser)
+        } else {
+            localUser = JSON.parse(localStorage.getItem('user'))
+            setUser(localUser)
+
+        }
+
         setState({ ...state, mainLoader: true })
         const apiUrl = `${env.APIURL}/getAllFriends`
         const allFriends = await axios.get(apiUrl, {
             params: {
-                _id: myUser[0]._id
+                _id: localUser._id
             }
         })
         console.log('response', allFriends)
@@ -128,7 +125,7 @@ const Chats = () => {
             let usersToUpdate = [...allFriends?.data?.data?.users]
             let chatsToPush = [...allFriends?.data?.data?.chats]
             usersToUpdate?.map((ele, idx) => {
-                usersToUpdate[idx].messages = chatsToPush?.filter((clc) => { return clc?.mutualIds?.includes(`${myUser[0]._id}${ele._id}`) && clc?.mutualIds?.includes(`${ele._id}${myUser[0]._id}`) })[0]?.messages
+                usersToUpdate[idx].messages = chatsToPush?.filter((clc) => { return clc?.mutualIds?.includes(`${localUser._id}${ele._id}`) && clc?.mutualIds?.includes(`${ele._id}${localUser._id}`) })[0]?.messages
             })
             console.log('usersToUpdate', usersToUpdate)
             setAllusers([...usersToUpdate])
@@ -140,7 +137,14 @@ const Chats = () => {
 
 
     useEffect(() => {
-        onload()
+        onload();
+        if ('speechSynthesis' in window) {
+            setVoiceAvailable(true)
+
+        } else {
+            setVoiceAvailable(false)
+
+        }
     }, [])
 
     const handlePostMessage = async () => {
@@ -148,7 +152,7 @@ const Chats = () => {
         if (state.InputValue) {
             const apiUrl = `${env.APIURL}/sendMessage`
             let payload = {
-                senderId: myUser[0]._id,
+                senderId: user._id,
                 receiverId: state?.oneSelected?._id,
                 message: state?.InputValue,
                 timeStamp: new Date().valueOf()
@@ -203,7 +207,7 @@ const Chats = () => {
             return count;
         }, 0);
     }
-    const handleNotification = (sender , message) => {
+    const handleNotification = (sender, message) => {
         addNotification({
             title: 'New Message',
             subtitle: `from ${sender}`, //optional
@@ -253,8 +257,11 @@ const Chats = () => {
                                         state.oneSelected &&
                                         state?.oneSelected?.messages?.map((ele, idx) => {
                                             return (
-                                                <div key={idx} className={ele.receiverId == myUser[0]._id ? 'messageForMe' : 'messageForHim'}>
-                                                    <span>{ele?.message} <div>{getMessageStatus(ele?.timeStamp)}</div></span>
+                                                <div key={idx} className={ele.receiverId == user._id ? 'messageForMe' : 'messageForHim'}>
+                                                    <span>{ele?.message} <div>{getMessageStatus(ele?.timeStamp)}</div>
+                                                    {voiceAvailable && <div className={ele.receiverId == user._id ? 'Speaker1' : 'Speaker2'} onClick={() => { speak(ele.message) }}> {<SvgIcons.Volume />}</div>}
+                                                    </span>
+                                                    
                                                 </div>
                                             )
                                         })
@@ -273,7 +280,7 @@ const Chats = () => {
                             <div className="slidingMainOne">
                                 <div className="mainHeading">Chats</div>
                                 {
-                                    console.log('allUsers',allUsers)
+                                    console.log('allUsers', allUsers)
                                 }
                                 {
                                     allUsers && allUsers?.length > 0 && allUsers.map((ele, idx) => {

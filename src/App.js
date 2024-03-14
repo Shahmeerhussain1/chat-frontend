@@ -2,6 +2,7 @@ import './assets/global.scss';
 import {
   createBrowserRouter,
   RouterProvider,
+  Navigate ,
   Route,
   Link,
 } from "react-router-dom";
@@ -11,45 +12,54 @@ import FriendRequsts from './pages/FriendRequests';
 import Members from './pages/Members';
 import Profile from './pages/Profile';
 import { Notifications } from 'react-push-notification';
+import { UserContext } from './components/contsxt';
+import { useState } from 'react';
 function App() {
 
-  let con = true
+  const [users , setUsers] = useState('')
+
+  const Authorized = () =>{
+   let user =  JSON.parse(localStorage.getItem('user'))
+   return  user?._id ? true : false 
+  }
 
   const router = createBrowserRouter([
     {
       path: "/",
       element: (
-        con ? <Auth /> : <div>Who you</div>
+        !Authorized() ? <Auth /> :  <Navigate to="/chats" />
       ),
     },
     {
       path: "/chats",
       element: (
-        con ? <Chats /> : <div>Who you</div>
+        Authorized() || users ? <Chats /> : <Navigate to="/" />
       ),
     },
     {
       path: "/frienRequests",
       element: (
-        con ? <FriendRequsts /> : <div>Who you</div>
+        Authorized() ? <FriendRequsts /> : <Navigate to="/" />
       ),
     },
     {
       path: "/members",
       element: (
-        con ? <Members /> : <div>Who you</div>
+        Authorized() ? <Members /> : <Navigate to="/" />
       ),
     },
     {
       path: "/profile",
       element: (
-        con ? <Profile /> : <div>Who you</div>
+        Authorized() ? <Profile /> : <Navigate to="/" />
       ),
     },])
   return (
     <>
+    <UserContext.Provider value={{users  ,setUsers}} >
     <Notifications />
     <RouterProvider router={router} />
+    </UserContext.Provider>
     </>
   );
 }

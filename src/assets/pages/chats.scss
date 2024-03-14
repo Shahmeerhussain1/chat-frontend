@@ -41,6 +41,7 @@
         font-weight: 400;
     }
 
+
     .slidingMain {
         height: 100%;
         display: flex;
@@ -120,7 +121,7 @@
         background-color: #F8F8F8;
     }
 
-   
+
 
     .selectedInput {
         height: 10%;
@@ -140,7 +141,8 @@
         font-weight: 800;
         cursor: pointer;
     }
-    .sendButton:focus{
+
+    .sendButton:focus {
         background-color: White;
     }
 
@@ -154,15 +156,18 @@
         outline: none;
 
     }
-    .no-hover:hover{
+
+    .no-hover:hover {
         background-color: white !important;
         cursor: default;
     }
-    .decision{
+
+    .decision {
         margin-right: 0px;
         display: flex;
     }
-    .reject{
+
+    .reject {
         background-color: #f32013;
         width: 40px;
         height: 40px;
@@ -173,7 +178,8 @@
         margin-right: 10px;
         cursor: pointer;
     }
-    .accept{
+
+    .accept {
         background-color: #5cb85c;
         width: 40px;
         height: 40px;
@@ -183,12 +189,13 @@
         align-items: center;
         cursor: pointer;
     }
-    .sendRequest{
+
+    .sendRequest {
         border: 1px solid #001f3d;
         background-color: #a8e8ca;
         color: #001f3d;
         padding-top: 5px;
-        padding-bottom: 5px ;
+        padding-bottom: 5px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -201,29 +208,57 @@
         font-weight: 500;
         cursor: pointer;
     }
+
     .selectedMessages {
         height: 70%;
         // background-color: ;
         overflow-y: scroll;
     }
-    .messageForMe{
+
+    .Speaker1 {
+        margin-bottom: -21px !important;
+        background-color: #cdcdcd;
+        width: 27px;
+        height: 27px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .Speaker2 {
+        margin-bottom: -21px !important;
+        background-color: #a8e8ca;
+        width: 27px;
+        height: 27px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .messageForMe {
         width: 100%;
         display: flex;
         justify-content: left;
         margin-bottom: 5px;
 
-        
+
     }
-    .messageForHim{
+
+    .messageForHim {
         width: 100%;
         display: flex;
         justify-content: right;
         margin-bottom: 5px;
 
-        
+
 
     }
-    .messageForHim > span{
+
+    .messageForHim>span {
         margin: 0px;
         margin-top: 12px;
         padding: 7px 12px;
@@ -236,9 +271,10 @@
         font-style: normal;
         font-weight: 500;
         max-width: 50%;
-        
+
     }
-    .messageForMe > span{
+
+    .messageForMe>span {
         margin: 0px;
         margin-top: 12px;
         padding: 7px 12px;
@@ -251,9 +287,10 @@
         font-style: normal;
         font-weight: 500;
         max-width: 50%;
-        
+
     }
-    .messageForMe > span > div{
+
+    .messageForMe>span>div {
         margin: 0px;
         margin-top: 8px;
         font-size: 9px;
@@ -261,9 +298,10 @@
         font-optical-sizing: auto;
         font-style: normal;
         font-weight: 400;
-        
+
     }
-    .messageForHim > span > div{
+
+    .messageForHim>span>div {
         margin: 0px;
         margin-top: 8px;
         font-size: 9px;
@@ -271,6 +309,6 @@
         font-optical-sizing: auto;
         font-style: normal;
         font-weight: 400;
-        
+
     }
 }

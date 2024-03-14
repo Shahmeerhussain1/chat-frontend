@@ -1,52 +1,39 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState , useContext} from "react";
 import env from "../config/config";
 import SvgIcons from "../assets/icons/SvgIcons";
 import BottomBar from "../components/BottomBar";
+import { UserContext } from "../components/contsxt";
 
 const Members = () => {
     const [allUsers, setAllusers] = useState(null)
-    const [lastMessage, setLastMessage] = useState("Kya hall hai bhai")
+    const { users, setUsers } = useContext(UserContext);
+    const [user , setUser] = useState('')
     const [state, setState] = useState({
         mainLoader: false,
         oneSelected: null,
         requestLoader: null
     })
 
-    let myUser = [
-
-        {
-            fullName: "Shah Meer",
-            email: "Shah@meer.com",
-            _id: "user100",
-            password: "meer123",
-            profileImage: 'https://scontent.fkhi17-1.fna.fbcdn.net/v/t39.30808-6/369704562_1001637994483209_5416341007227171651_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=9c7eae&_nc_ohc=lLch4w46AnkAX_iVwBx&_nc_ht=scontent.fkhi17-1.fna&oh=00_AfDCnROInRfQRlF5mZSMxUt_VUb4QDQ0vVn2jemZx0muBQ&oe=65E1E1C8'
-        },
-
-        // {
-        //     _id:
-        //         "user1",
-        //     fullName:
-        //         "John Doe",
-        //     email:
-        //         "john@example.com",
-        //     password:
-        //         "password123",
-        //     profileImage:
-        //         "https://scontent.fkhi17-1.fna.fbcdn.net/v/t39.30808-6/369704562_100163…"
-
-        // }
-
-    ];
+    
 
     const onload = async () => {
+        let localUser
+        if(users?._id ){
+            localUser = users
+            setUser(localUser)
+        }else{
+            localUser = JSON.parse(localStorage.getItem('user'))
+            setUser(localUser)
+
+        }
         setState({ ...state, mainLoader: true })
         const apiUrl = `${env.APIURL}/allMembers`
         console.log('apiUrl', apiUrl)
 
         const allFriends = await axios.get(apiUrl, {
             params: {
-                _id: myUser[0]._id
+                _id: localUser._id
             }
         })
         console.log('response', allFriends)
@@ -69,7 +56,7 @@ const Members = () => {
 
         const sendRequest = await axios.post(apiUrl, {
             receiverId: ele._id,
-            senderId: myUser[0]._id
+            senderId: user?._id
         })
         console.log('response', sendRequest)
         if (sendRequest?.data?.success) {

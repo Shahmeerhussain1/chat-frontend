@@ -1,0 +1,300 @@
+#SignUp {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    #main {
+        background-color: #a8e8ca;
+        width: 40%;
+        height: 500px;
+        border-radius: 20px;
+    }
+
+    a{
+        color: blue;
+        cursor: pointer;
+    }
+
+    #filess {
+        display: flex;
+        justify-content: center;
+        height: 70px;
+        width: 70px;
+        align-items: center;
+        border: 1px solid #ffffff;
+        border-radius: 50%;
+        cursor: pointer;
+        margin-bottom: 30px;
+        color: white;
+        font-size: 12px;
+        font-family: "DM Sans", sans-serif;
+
+    }
+    .errorDiv{
+        color: red;
+        font-size: 12px;
+        font-family: "DM Sans", sans-serif;
+        text-align: center;
+        margin-top: 5px;
+    }
+    .Photo{
+       width: 100%;
+       height: 100%;
+       border-radius: inherit;
+       object-fit: cover; 
+    }
+
+    #User_photo {
+        // width: 290px;
+        border: none;
+        background-color: #dedede;
+        // height: 35px;
+        // padding-left: 15px;
+        /* padding-top: 11px; */
+    }
+
+    #head {
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // color: #314760;
+        color: #ffffff;
+        // font-family: myfont;
+        font-family: "DM Sans", sans-serif;
+        // font-family: "Caveat", cursive;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-weight: 400;
+    }
+    #login_change{
+        font-family: "DM Sans", sans-serif;
+
+    }
+
+    #name,
+    #mail,
+    #passward,
+    #login_change,
+    #signup_btn {
+        display: flex;
+        justify-content: center;
+        height: 50px;
+        align-items: center;
+    }
+
+    #emailS {
+        width: 290px;
+        border: 1px solid #ffffff;
+        background-color: #ffffff;
+        height: 35px;
+        padding: 3px 15px;
+        font-family: "DM Sans", sans-serif;
+        border-radius: 6px;
+
+    }
+
+    #namE {
+        width: 290px;
+        border: 1px solid #ffffff;
+        background-color: #ffffff;
+        height: 35px;
+        padding: 3px 15px;
+        font-family: "DM Sans", sans-serif;
+        border-radius: 6px;
+
+    }
+
+    #passS {
+        width: 290px;
+        border: 1px solid #ffffff;
+        background-color: #ffffff;
+        height: 35px;
+        padding: 3px 15px;
+        font-family: "DM Sans", sans-serif;
+        border-radius: 6px;
+
+
+    }
+
+    .zeera {
+        border: 1.5px solid red !important;
+
+    }
+
+    #emailS:focus,
+    #passS:focus,
+    #namE:focus {
+        outline: none;
+        border: none;
+    }
+
+    #Signup {
+        height: 45px;
+        width: 290px;
+        background-color: #a8e8ca;
+        color: #ffff;
+        border: 1px solid #ffffff;
+        border-radius: 25px;
+        font-size: 15px;
+        padding: 3px 15px;
+    }
+
+    #Signup:hover {
+        border: 2px solid #ffffff;
+        cursor: pointer;
+
+    }
+
+
+
+    @media screen and (max-width: 920px) {
+        #main {
+            width: 70%;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        #main {
+            width: 100%;
+            box-shadow: none;
+            height: 100vh;
+            margin-top: 0px;
+            border-radius: 0px;
+        }
+
+        #emailS,
+        #passS,
+        #namE {
+            width: 80%;
+        }
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+
+    #loader {
+        display: flex;
+        flex-flow: column;
+        height: 100vh;
+        justify-content: space-around;
+        align-items: center;
+        background-color: hsla(0, 0%, 100%, .8);
+        ;
+        width: 100%;
+    }
+
+    #loading-spinner {
+        display: block;
+        margin: 0 auto;
+        -webkit-animation: loading-spinner-spin 2s linear infinite;
+        animation: loading-spinner-spin 2s linear infinite;
+        will-change: transform;
+    }
+
+    @-webkit-keyframes loading-spinner-spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes loading-spinner-spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    #loading-circle {
+        stroke-dasharray: 105;
+        stroke-dashoffset: 105;
+        stroke-linecap: round;
+        -webkit-animation: loading-spinner-small 1.7s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+        animation: loading-spinner-small 1.7s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+        transform: translateZ(0);
+        transform-origin: center;
+        will-change: stroke-dashoffset;
+    }
+
+    #loading-circle-large {
+        stroke-dasharray: 210;
+        stroke-dashoffset: 210;
+        stroke-linecap: round;
+        -webkit-animation: loading-spinner-large 1.7s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+        animation: loading-spinner-large 1.7s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+        transform: translateZ(0);
+        transform-origin: center;
+        will-change: stroke-dashoffset;
+    }
+
+    @-webkit-keyframes loading-spinner-large {
+        0% {
+            stroke-dashoffset: 190;
+            transform: scaleY(1);
+        }
+
+        49.99% {
+            stroke-dashoffset: 0;
+            transform: scaleY(1);
+        }
+
+        50% {
+            stroke-dashoffset: 0;
+            transform: scaleY(-1) rotate(25deg);
+        }
+
+        100% {
+            stroke-dashoffset: 190;
+            transform: scaleY(-1) rotate(-32deg);
+        }
+    }
+
+    @keyframes loading-spinner-large {
+        0% {
+            stroke-dashoffset: 190;
+            transform: scaleY(1);
+        }
+
+        49.99% {
+            stroke-dashoffset: 0;
+            transform: scaleY(1);
+        }
+
+        50% {
+            stroke-dashoffset: 0;
+            transform: scaleY(-1) rotate(25deg);
+        }
+
+        100% {
+            stroke-dashoffset: 190;
+            transform: scaleY(-1) rotate(-32deg);
+        }
+    }
+
+    #main_loader {
+        display: none;
+        width: 100% !important;
+
+    }
+
+    #lodar_for_editor {
+        display: none;
+        width: 100%;
+    }
+
+    /* #main{
+        display: none !important;
+    } */
+
+}
