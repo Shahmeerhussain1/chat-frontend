@@ -29,6 +29,9 @@
         font-optical-sizing: auto;
         font-style: normal;
         font-weight: 400;
+        display: flex;
+        align-items: center;
+        gap: 5px;
     }
 
     .lastSeen {
@@ -225,6 +228,17 @@
         justify-content: center;
         align-items: center;
 
+    }
+
+    .notificationNumber {
+        width: 24px !important;
+        height: 24px !important;
+        color: white;
+        background-color: #a8e8ca;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .Speaker2 {

@@ -187,9 +187,8 @@ const Chats = () => {
     }
 
     useEffect(() => {
-        if (state.oneSelected)
             handleScroll()
-    }, [state.oneSelected])
+    }, [state])
 
     const handleScroll = () => {
         console.log('THEYCALLEDME')
@@ -291,8 +290,8 @@ const Chats = () => {
                                                 </div>
                                                 <div className="information">
                                                     <div className="name">{ele.fullName}</div>
-                                                    <div className="lastMessage">{allUsers && ele.messages[ele.messages.length - 1]?.message}</div>
-                                                    <div className="lastMessage">{notifications.includes(ele._id) && countOccurrences(notifications, ele._id)}</div>
+                                                    <div className="lastMessage">{allUsers && ele.messages[ele.messages.length - 1]?.message}{notifications.includes(ele._id) && <div className="notificationNumber">{ countOccurrences(notifications, ele._id)}</div>}</div>
+                                                    
                                                 </div>
                                             </div>
                                         )
