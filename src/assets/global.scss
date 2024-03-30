@@ -40,7 +40,7 @@
     height: 10px;
     border-radius: 50%;
     border: 5px solid transparent;
-    border-top-color: #001f3d;
+    border-top-color: #7a6af8;
     animation: rotate 1s infinite;
 }
 
@@ -49,7 +49,7 @@
 @keyframes rotate {
     0% {
         transform: rotate(0deg);
-        background-color: #a8e8ca;
+        background-color: #7a6af8;
     }
 
     100% {

@@ -32,6 +32,11 @@
         display: flex;
         align-items: center;
         gap: 5px;
+        white-space: nowrap;
+        width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
     }
 
     .lastSeen {
@@ -122,43 +127,12 @@
     .selectedTopName {
         height: 10%;
         background-color: #F8F8F8;
-    }
-
-
-
-    .selectedInput {
-        height: 10%;
-        background-color: #F8F8F8;
         display: flex;
         align-items: center;
-    }
-
-    .sendButton {
-        height: 10%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #a8e8ca;
-        color: #001f3d;
-        font-family: "DM Sans", sans-serif;
-        font-weight: 800;
-        cursor: pointer;
-    }
-
-    .sendButton:focus {
-        background-color: White;
+        // justify-content: center;
     }
 
 
-    .selectedInput>textarea {
-        background-color: white;
-        padding: 7px;
-        width: 100%;
-        height: 70%;
-        border: none;
-        outline: none;
-
-    }
 
     .no-hover:hover {
         background-color: white !important;
@@ -195,7 +169,6 @@
 
     .sendRequest {
         border: 1px solid #001f3d;
-        background-color: #a8e8ca;
         color: #001f3d;
         padding-top: 5px;
         padding-bottom: 5px;
@@ -210,10 +183,30 @@
         font-style: normal;
         font-weight: 500;
         cursor: pointer;
+        // background-color: #a8e8ca;
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 50s ease infinite;
+    }
+
+
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
     }
 
     .selectedMessages {
-        height: 70%;
+        height: 75%;
         // background-color: ;
         overflow-y: scroll;
     }
@@ -234,7 +227,7 @@
         width: 24px !important;
         height: 24px !important;
         color: white;
-        background-color: #a8e8ca;
+        background-color: #f04343;
         border-radius: 50%;
         display: flex;
         justify-content: center;
@@ -243,7 +236,7 @@
 
     .Speaker2 {
         margin-bottom: -21px !important;
-        background-color: #a8e8ca;
+        background-color: #7a6af8;
         width: 27px;
         height: 27px;
         border-radius: 50%;
@@ -276,7 +269,6 @@
         margin: 0px;
         margin-top: 12px;
         padding: 7px 12px;
-        background-color: #a8e8ca;
         margin-right: 7px;
         border-radius: 6px;
         font-size: 14px;
@@ -285,8 +277,17 @@
         font-style: normal;
         font-weight: 500;
         max-width: 50%;
+        // background-color: #a8e8ca;
+        background-color: #7a6af8;
+        color: white;
+        word-break: break-all;
+
 
     }
+
+
+
+
 
     .messageForMe>span {
         margin: 0px;
@@ -301,6 +302,8 @@
         font-style: normal;
         font-weight: 500;
         max-width: 50%;
+        word-break: break-all;
+
 
     }
 
@@ -312,6 +315,7 @@
         font-optical-sizing: auto;
         font-style: normal;
         font-weight: 400;
+        color: white;
 
     }
 
@@ -323,6 +327,51 @@
         font-optical-sizing: auto;
         font-style: normal;
         font-weight: 400;
+
+    }
+
+    .selectedInputandbuttonParent {
+        display: flex;
+        height: 15%;
+    }
+
+
+    .selectedInput {
+        height: 100%;
+        background-color: #F8F8F8;
+        display: flex;
+        align-items: center;
+        width: 90%;
+    }
+
+    .sendButton {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // background-color: #a8e8ca;
+        background-color: #F8F8F8;
+        color: #001f3d;
+        font-family: "DM Sans", sans-serif;
+        font-weight: 800;
+        cursor: pointer;
+        width: 10%;
+    }
+
+    .sendButton:focus {
+        background-color: White;
+    }
+
+
+    .selectedInput>textarea {
+        background-color: white;
+        padding: 17px;
+        width: 95%;
+        height: 45%;
+        resize: none;
+        border: none;
+        outline: none;
+        border-radius: 32px;
 
     }
 }

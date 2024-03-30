@@ -267,10 +267,13 @@ const Chats = () => {
                                     }
                                 </div>
                             </div>
+                            <div className="selectedInputandbuttonParent">
+
                             <div className="selectedInput">
                                 <textarea onChange={(e) => setState({ ...state, InputValue: e.target.value })} value={state.InputValue} placeholder="Type your message here..." />
                             </div>
-                            <div onClick={() => handlePostMessage()} className="sendButton">SEND</div>
+                            <div onClick={() => handlePostMessage()} className="sendButton"><SvgIcons.Send color={state.InputValue ? '#7a6af8' : '#cdcdcd'} /></div>
+                            </div>
 
 
                         </div>
@@ -278,9 +281,7 @@ const Chats = () => {
                         <div className="slidingMain">
                             <div className="slidingMainOne">
                                 <div className="mainHeading">Chats</div>
-                                {
-                                    console.log('allUsers', allUsers)
-                                }
+                             
                                 {
                                     allUsers && allUsers?.length > 0 && allUsers.map((ele, idx) => {
                                         return (
